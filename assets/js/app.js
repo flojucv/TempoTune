@@ -151,8 +151,8 @@ volume.addEventListener('input', () => {
   lecteur.volume = volume.value;
 
   if(volume.value == 0) {
-    btnVolume.children[0].src = "/assets/pictures/mute.png";
+    btnVolume.children[0].src = "./assets/pictures/mute.png";
   } else {
-    btnVolume.children[0].src = "/assets/pictures/sound.png";
+    btnVolume.children[0].src = "./assets/pictures/sound.png";
   }
 })
