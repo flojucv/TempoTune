@@ -83,10 +83,10 @@ btnMenu.addEventListener('click', () => {
 
 btnLoop.addEventListener('click', () => {
   if (loop) {
-    btnLoop.children[0].src = "/assets/pictures/loop.png";
+    btnLoop.children[0].src = "./assets/pictures/loop.png";
     loop = false;
   } else {
-    btnLoop.children[0].src = "/assets/pictures/loop_black.png";
+    btnLoop.children[0].src = "./assets/pictures/loop_black.png";
     loop = true;
   }
 })
@@ -95,14 +95,14 @@ btnRandom.addEventListener('click', async () => {
   const req = await fetch("./assets/data.json");
   const dbMusics = await req.json();
   if(random) {
-    btnRandom.children[0].src = "/assets/pictures/random.png";
+    btnRandom.children[0].src = "./assets/pictures/random.png";
     random = false;
   } else if(loop) {
-    btnRandom.children[0].src = "/assets/pictures/random_black.png";
+    btnRandom.children[0].src = "./assets/pictures/random_black.png";
     random = true;
     startMusic(dbMusics[Math.floor(Math.random() * dbMusics.length)]);
   } else {
-    btnRandom.children[0].src = "/assets/pictures/random.png";
+    btnRandom.children[0].src = "./assets/pictures/random.png";
     random = false;
     startMusic(dbMusics[Math.floor(Math.random() * dbMusics.length)]);
   }
