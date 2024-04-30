@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "cover": "harry_styles-watermelon_sugar.jpg",
+        "sound": "Harry_Styles-Watermelon_Sugar.mp3",
+        "title": "Harry Styles - Watermelon Sugar",
+        "category": "pop"
+    },
+    {
+        "id": 2,
+        "cover": "bakermat-baiana.jpg",
+        "sound": "Bakermat-Baiana.mp3",
+        "title": "Bakermat - Baianá",
+        "category": "electro"
+    },
+    {
+        "id": 3,
+        "cover": "maroon_5-lost.jpg",
+        "sound": "Maroon_5-Lost.mp3",
+        "title": "Maroon 5 - Lost",
+        "category": "pop"
+    },
+    {
+        "id": 4,
+        "cover": "jonas_blue-dont_call_it_love.jpg",
+        "sound": "Jonas_Blue-Dont_Call_It_Love.mp3",
+        "title": "Jonas Blue, EDX ft. Alex Mills - Don't Call It Love",
+        "category": "electro"
+    },
+    {
+        "id": 5,
+        "cover": "avicci_levels.jpeg",
+        "sound": "AviciiLevels.mp3",
+        "title": "Avicii Levels",
+        "category": "default"
+    },
+    {
+        "id": 6,
+        "cover": "thereforeiamlivefrom.jpeg",
+        "sound": "BillieEilishThereforeIAmLiveFromTheAmericanMusicAwards2020.mp3",
+        "title": "Therefore I Am Live From The American Music Awards 2020・Billie Eilish",
+        "category": "default"
+    },
+    {
+        "id": 7,
+        "cover": "floya-lights_out.jpg",
+        "sound": "Floya-Lights_Out.mp3",
+        "title": "Lights Out・Floya",
+        "category": "default"
+    },
+    {
+        "id": 8,
+        "cover": "jonas_blue-dont_wake_me_up.jpg",
+        "sound": "Jonas_Blue-Dont_Wake_Me_Up.mp3",
+        "title": "Don't Wake Me Up・Jonas Blue",
+        "category": "default"
+    },
+    {
+        "id": 9,
+        "cover": "jonas_blue-perfect_strangers.jpg",
+        "sound": "Jonas_Blue-Perfect_Strangers.mp3",
+        "title": "Perfect Strangers・Jonas Blue",
+        "category": "default"
+    },
+    {
+        "id": 10,
+        "cover": "jonas_blue-polaroid.jpg",
+        "sound": "Jonas_Blue-Polaroid.mp3",
+        "title": "Polaroid・Jonas Blue",
+        "category": "default"
+    },
+    {
+        "id": 11,
+        "cover": "kungs-all_night_long.jpg",
+        "sound":  "Kungs-All_Night_Long.mp3",
+        "title": "All Night Long・Kungs",
+        "category": "default"
+    },
+    {
+        "id": 12,
+        "cover": "LPLostOnYou.jpeg",
+        "sound": "LPLostOnYou.mp3",
+        "title": "Lost On You・LP",
+        "category": "default"
+    }
+]
