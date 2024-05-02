@@ -37,9 +37,11 @@ const startMusic = (sound) => {
 }
 
 const getData = async () => {
-  const req = await fetch("./assets/data.json");
+  const req = await fetch("https://api-jukebox.onrender.com/api/v1/music");
   const dbMusics = await req.json();
-  dbMusics.forEach((music) => {
+  const data = dbMusics.result;
+  data.forEach((music) => {
+    console.log(music)
     playlist.innerHTML += `<div id="${music.id}" class="music"><h2>${music.title}</h2><img src="${config.urlCover}${music.cover}" alt="${music.title}"/><div></div></div>`;
   });
 
@@ -48,7 +50,7 @@ const getData = async () => {
   allMusicDiv.forEach((div) => {
     div.addEventListener('click', function () {
       const id = parseInt(div.id);
-      const searchById = dbMusics.find((element) => element.id === id);
+      const searchById = data.find((element) => element.id === id);
       //alert(`Veux-tu écouter le titre : ${searchById.title}`);
       startMusic(searchById);
     })
@@ -92,37 +94,39 @@ btnLoop.addEventListener('click', () => {
 })
 
 btnRandom.addEventListener('click', async () => {
-  const req = await fetch("./assets/data.json");
+  const req = await fetch("https://api-jukebox.onrender.com/api/v1/music");
   const dbMusics = await req.json();
+  const data = dbMusics.result;
   if(random) {
     btnRandom.children[0].src = "./assets/pictures/random.png";
     random = false;
   } else if(loop) {
     btnRandom.children[0].src = "./assets/pictures/random_black.png";
     random = true;
-    startMusic(dbMusics[Math.floor(Math.random() * dbMusics.length)]);
+    startMusic(data[Math.floor(Math.random() * data.length)]);
   } else {
     btnRandom.children[0].src = "./assets/pictures/random.png";
     random = false;
-    startMusic(dbMusics[Math.floor(Math.random() * dbMusics.length)]);
+    startMusic(data[Math.floor(Math.random() * data.length)]);
   }
 })
 
 lecteur.addEventListener('ended', async () => {
-  const req = await fetch("./assets/data.json");
+  const req = await fetch("https://api-jukebox.onrender.com/api/v1/music");
   const dbMusics = await req.json();
+  const data = dbMusics.data;
   if (loop && random === false) {
-    if (dbMusics[lastMusicIndex + 1] === undefined) {
-      startMusic(dbMusics[0]);
+    if (data[lastMusicIndex + 1] === undefined) {
+      startMusic(data[0]);
     } else if(loop) {
-      startMusic(dbMusics[lastMusicIndex + 1]);
+      startMusic(data[lastMusicIndex + 1]);
     }
   } else if(loop && random === true) {
-    let randomId = Math.floor(Math.random() * dbMusics.length);
+    let randomId = Math.floor(Math.random() * data.length);
     while(randomId === lastMusicIndex) {
-      randomId = Math.floor(Math.random() * dbMusics.length);
+      randomId = Math.floor(Math.random() * data.length);
     }
-    startMusic(dbMusics[randomId]);
+    startMusic(data[randomId]);
   }
 })
 
@@ -139,8 +143,6 @@ lecteur.addEventListener('timeupdate', () => {
 
   const pourcentage = Math.floor(lecteur.currentTime * 100 / lecteur.duration);
   soundBar.style.width = `${pourcentage}%`
-  console.log(lecteur.currentTime)
-  console.log(lecteur.duration)
 })
 
 btnVolume.addEventListener('click', () => {
