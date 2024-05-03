@@ -31,10 +31,10 @@ const startMusic = async (sound) => {
   const urlMusique = URL.createObjectURL(musique);
   lecteur.src = `${urlMusique}`;
   lecteur.play();
-  let image = await fetch(`${urlApi}/downloads/cover/${sound.cover}`);
+  let image = await fetch();
   image = await image.blob();
   const urlImage = URL.createObjectURL(image);
-  cover.src = `${urlImage}`;
+  cover.src = `${urlApi}/downloads/cover/${sound.cover}`;
   if (disque.classList.contains("pause")) {
     disque.classList.remove("pause");
   }
