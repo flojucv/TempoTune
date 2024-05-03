@@ -11,6 +11,8 @@ const btnLoop = document.getElementById('btnLoop');
 const volume = document.getElementById('volume');
 const btnVolume = document.getElementById('btnVolume');
 
+const urlApi = `https://api-jukebox.onrender.com/api/v1`;
+
 let loop = false;
 let random = true;
 let lastMusicIndex = 0;
@@ -22,12 +24,17 @@ const config = {
   urlPlayImage: "./assets/pictures/play.png",
 };
 
-const startMusic = (sound) => {
-  console.log(sound)
+const startMusic = async (sound) => {
   lastMusicIndex = sound.id-1;
-  lecteur.src = `${config.urlSound}${sound.sound}`;
+  let musique = await fetch(`http://localhost:3000/api/v1/downloads/sound/${sound.sound}`);
+  musique = await musique.blob();
+  const urlMusique = URL.createObjectURL(musique);
+  lecteur.src = `${urlMusique}`;
   lecteur.play();
-  cover.src = `${config.urlCover}${sound.cover}`;
+  let image = await fetch(`${urlApi}/downloads/cover/${sound.cover}`);
+  image = await image.blob();
+  const urlImage = URL.createObjectURL(image);
+  cover.src = `${urlImage}`;
   if (disque.classList.contains("pause")) {
     disque.classList.remove("pause");
   }
@@ -37,12 +44,14 @@ const startMusic = (sound) => {
 }
 
 const getData = async () => {
-  const req = await fetch("https://api-jukebox.onrender.com/api/v1/music");
+  const req = await fetch(`${urlApi}/music`);
   const dbMusics = await req.json();
   const data = dbMusics.result;
-  data.forEach((music) => {
-    console.log(music)
-    playlist.innerHTML += `<div id="${music.id}" class="music"><h2>${music.title}</h2><img src="${config.urlCover}${music.cover}" alt="${music.title}"/><div></div></div>`;
+  data.forEach(async (music) => {
+    let image = await fetch(`${urlApi}/downloads/cover/${music.cover}`);
+    image = await image.blob();
+    const urlImage = URL.createObjectURL(image);
+    playlist.innerHTML += `<div id="${music.id}" class="music"><h2>${music.title}</h2><img src="${urlImage}" alt="${music.title}"/><div></div></div>`;
   });
 
   const allMusicDiv = document.querySelectorAll(".music");
@@ -93,26 +102,28 @@ btnLoop.addEventListener('click', () => {
   }
 })
 
-btnRandom.addEventListener('click', async () => {
-  const req = await fetch("https://api-jukebox.onrender.com/api/v1/music");
-  const dbMusics = await req.json();
-  const data = dbMusics.result;
+btnRandom.addEventListener('click', async () => {//A voir
   if(random) {
     btnRandom.children[0].src = "./assets/pictures/random.png";
     random = false;
   } else if(loop) {
     btnRandom.children[0].src = "./assets/pictures/random_black.png";
     random = true;
-    startMusic(data[Math.floor(Math.random() * data.length)]);
+    let music = await fetch(`${urlApi}/music/random`)
+    music = music.json();
+    startMusic(music.result);
   } else {
     btnRandom.children[0].src = "./assets/pictures/random.png";
     random = false;
-    startMusic(data[Math.floor(Math.random() * data.length)]);
+    let music = await fetch(`${urlApi}/music/random`)
+    music = await music.json();
+    console.log(music)
+    startMusic(music.result);
   }
 })
 
 lecteur.addEventListener('ended', async () => {
-  const req = await fetch("https://api-jukebox.onrender.com/api/v1/music");
+  const req = await fetch(`${urlApi}/music`);
   const dbMusics = await req.json();
   const data = dbMusics.data;
   if (loop && random === false) {
