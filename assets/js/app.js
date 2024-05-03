@@ -26,14 +26,8 @@ const config = {
 
 const startMusic = async (sound) => {
   lastMusicIndex = sound.id-1;
-  let musique = await fetch(`http://localhost:3000/api/v1/downloads/sound/${sound.sound}`);
-  musique = await musique.blob();
-  const urlMusique = URL.createObjectURL(musique);
-  lecteur.src = `${urlMusique}`;
+  lecteur.src = `${urlApi}/downloads/sound/${sound.sound}`;
   lecteur.play();
-  let image = await fetch();
-  image = await image.blob();
-  const urlImage = URL.createObjectURL(image);
   cover.src = `${urlApi}/downloads/cover/${sound.cover}`;
   if (disque.classList.contains("pause")) {
     disque.classList.remove("pause");
@@ -48,19 +42,15 @@ const getData = async () => {
   const dbMusics = await req.json();
   const data = dbMusics.result;
   data.forEach(async (music) => {
-    let image = await fetch(`${urlApi}/downloads/cover/${music.cover}`);
-    image = await image.blob();
-    const urlImage = URL.createObjectURL(image);
+    const urlImage = `${urlApi}/downloads/cover/${music.cover}`;
     playlist.innerHTML += `<div id="${music.id}" class="music"><h2>${music.title}</h2><img src="${urlImage}" alt="${music.title}"/><div></div></div>`;
   });
 
   const allMusicDiv = document.querySelectorAll(".music");
-
   allMusicDiv.forEach((div) => {
     div.addEventListener('click', function () {
       const id = parseInt(div.id);
       const searchById = data.find((element) => element.id === id);
-      //alert(`Veux-tu écouter le titre : ${searchById.title}`);
       startMusic(searchById);
     })
   });
